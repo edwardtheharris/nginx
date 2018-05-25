@@ -18,7 +18,7 @@
 - name: Install ca-bundle.
   copy:
     content: "{{ ca }}"
-    dest: "/etc/ssl/certs/{{ ca }}.crt"
+    dest: "/etc/ssl/certs/{{ server_name }}.ca-bundle"
 - name: Install nginx config.
   copy:
     src: nginx.conf
