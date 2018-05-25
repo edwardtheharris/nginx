@@ -6,7 +6,8 @@ Build and run an NGINX Docker image then install add and enable a systemd servic
 Requirements
 ------------
 
-Docker, Ansible, and perhaps ArchLinux.
+Docker, Ansible, and perhaps ArchLinux. Additionally you will need to set the variables
+listed below in by overwriting vars/main.yml with plain text or Ansible Vault.
 
 Role Variables
 --------------
