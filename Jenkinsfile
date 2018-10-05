@@ -1,12 +1,15 @@
 pipeline {
-    agent any;
+    agent {
+        docker {
+            image 'alpine:latest'
+        }
+    }
     
     stages {
         stage ('Build') {
             steps {
                 echo "building . . ."
-                ansiblePlaybook
-                  playbook: 'tests/test.yml',
+                ansiblePlaybook playbook: 'tests/test.yml',
                   installation: 'ansible',
                   inventory: 'tests/inventory',
                   limit: 'test-nginx',
