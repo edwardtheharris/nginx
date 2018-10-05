@@ -6,10 +6,10 @@ pipeline {
             steps {
                 echo "building . . ."
                 ansiblePlaybook {
-                  installation: 'ansible'
-                  inventory: 'tests/inventory'
-                  limit: 'test-nginx'
-                  playbook: 'tests/test.yml'
+                  installation: 'ansible',
+                  inventory: 'tests/inventory',
+                  limit: 'test-nginx',
+                  playbook: 'tests/test.yml',
                   extraVars: []
                 }
             }
