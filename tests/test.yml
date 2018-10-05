@@ -2,6 +2,6 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - nginx
+    - gahan-corporation.nginx
 ...
 # vim: ft=ansible:
