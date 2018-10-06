@@ -1,4 +1,8 @@
 ---
+- name: Install missing packages.
+  apk:
+    name: ca-certificates
+    state: present
 - name: Create nginx config directories.
   file:
     dest: "{{ item }}"
