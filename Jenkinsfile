@@ -3,13 +3,14 @@ pipeline {
   stages {
     stage('Build Container') {
       steps {
-        sh '''docker rm -f test.nginx || true;
-          docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\';
-          docker exec test.nginx apk update; 
-          wait;
-          docker exec test.nginx apk add python3;
-          wait;
-          docker exec test.nginx ln -sf /usr/bin/python3 /usr/bin/python;
+        sh '''docker rm -f test.nginx || true
+docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\';
+docker exec test.nginx apk update; 
+wait;
+docker exec test.nginx apk add python3 ca-certificates;
+wait;
+docker exec test.nginx ln -sf /usr/bin/python3 /usr/bin/python;
+docker exec test.nginx mkdir -p /etc/ssl/private
           '''
       }
     }
