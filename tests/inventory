@@ -1,1 +1,1 @@
-test-nginx ansible_connection=docker
+test.nginx ansible_connection=docker
