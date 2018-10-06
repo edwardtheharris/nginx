@@ -22,5 +22,16 @@ docker exec test.nginx mkdir -p /etc/ssl/private
         ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault', extras: '--vault-password-file /var/jenkins_home/secrets/vault', sudoUser: 'root')
       }
     }
+    stage('Test') {
+      steps {
+        sh 'pytest --hosts "docker://root@test.nginx" --junit-xml results.xml'
+        junit(testResults: 'results.xml', allowEmptyResults: true, keepLongStdio: true)
+      }
+    }
+    stage('Teardown') {
+      steps {
+        sh 'docker rm -f test.nginx'
+      }
+    }
   }
 }
