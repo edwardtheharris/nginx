@@ -1,4 +1,8 @@
 ---
+- name: Install missing packages.
+  apk:
+    name: ca-certificates
+    state: present
 - name: Create nginx config directories.
   file:
     dest: "{{ item }}"
@@ -23,10 +27,10 @@
   copy:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-- name: Install favicon.
-  copy:
-    src: favicon.ico
-    dest: "{{ favicon_override }}"
+# - name: Install favicon.
+#  copy:
+#    src: favicon.ico
+#    dest: "{{ favicon_override }}"
 - name: Template default conf.
   template:
     src: default.j2
