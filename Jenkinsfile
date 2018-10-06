@@ -14,6 +14,9 @@ pipeline {
       }
     }
     stage('Run Playbook') {
+      environment {
+        DOCKER_HOST = 'tcp://socat:2375'
+      }
       steps {
         ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault', extras: '--vault-password-file /var/jenkins_home/secrets/vault', sudoUser: 'root')
       }
