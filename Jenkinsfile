@@ -1,21 +1,11 @@
-#!/usr/bin/env groovy
-
 pipeline {
-    agent {
-        docker {
-            image 'alpine:latest'
-        }
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh '''docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\'
+'''
+      }
     }
-    
-    stages {
-        stage ('Build') {
-            steps {
-                ansiblePlaybook playbook: 'tests/test.yml',
-                  installation: 'ansible',
-                  inventory: 'tests/inventory',
-                  limit: 'test-nginx',
-                  extraVars: [:]
-            }
-        }
-    }
+  }
 }
