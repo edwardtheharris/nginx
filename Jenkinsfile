@@ -1,8 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Build Container') {
       steps {
+        sh 'docker rm -f test.nginx || true'
         sh '''docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\'
 '''
         sh '''docker exec test.nginx apk update
