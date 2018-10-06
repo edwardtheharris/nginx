@@ -15,7 +15,7 @@ pipeline {
     }
     stage('Run Playbook') {
       steps {
-        ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault', extras: '--vault-password-file /var/jenkins_home/secrets/vault')
+        ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault', extras: '--vault-password-file /var/jenkins_home/secrets/vault', sudoUser: 'root')
       }
     }
   }
