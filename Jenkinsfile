@@ -19,7 +19,7 @@ docker exec test.nginx mkdir -p /etc/ssl/private
         DOCKER_HOST = 'tcp://socat:2375'
       }
       steps {
-        ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault', extras: '--vault-password-file /var/jenkins_home/secrets/vault', sudoUser: 'root')
+        sh 'ansible-playbook --vault-password-file /var/jenkins_home/secrets/vault -i tests/inventory tests/test.yml'
       }
     }
     stage('Test') {
