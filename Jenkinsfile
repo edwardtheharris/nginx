@@ -7,8 +7,11 @@ pipeline {
         sh '''docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\'
 '''
         sh '''docker exec test.nginx apk update
+wait
 docker exec test.nginx apk add python3
-docker exec test.nginx ln -sf /usr/bin/python3 /usr/bin/python'''
+wait
+docker exec test.nginx ln -sf /usr/bin/python3 /usr/bin/python
+wait'''
       }
     }
   }
