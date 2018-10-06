@@ -1,21 +1,17 @@
-#!/usr/bin/env groovy
-
 pipeline {
-    agent {
-        docker {
-            image 'alpine:latest'
-        }
+  agent any
+  stages {
+    stage('Build Container') {
+      steps {
+        sh '''docker rm -f test.nginx || true;
+          docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\';
+          docker exec test.nginx apk update; 
+          wait;
+          docker exec test.nginx apk add python3;
+          wait;
+          docker exec test.nginx ln -sf /usr/bin/python3 /usr/bin/python;
+          '''
+      }
     }
-    
-    stages {
-        stage ('Build') {
-            steps {
-                ansiblePlaybook playbook: 'tests/test.yml',
-                  installation: 'ansible',
-                  inventory: 'tests/inventory',
-                  limit: 'test-nginx',
-                  extraVars: [:]
-            }
-        }
-    }
+  }
 }
