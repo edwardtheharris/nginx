@@ -13,5 +13,10 @@ pipeline {
           '''
       }
     }
+    stage('Run Playbook') {
+      steps {
+        ansiblePlaybook(playbook: 'tests/test.yml', colorized: true, disableHostKeyChecking: true, installation: 'ansible', inventory: 'tests/inventory', vaultCredentialsId: 'vault')
+      }
+    }
   }
 }
