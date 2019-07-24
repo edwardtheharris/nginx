@@ -38,8 +38,3 @@ License
 -------
 
 Unlicense
-
-Author Information
-------------------
-
-Written by Xander Harris for Gahan Corporation
