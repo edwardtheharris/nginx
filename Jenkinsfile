@@ -1,11 +1,23 @@
-pipeline {
-  agent any
-  stages {
+def nginxImage
+
+node('worker') {
+  stage('build') {
+    nginxImage = docker.build("gcr.io/xander-the-harris-jenkins/nginx:v${env.BUILD_NUMBER}")
+  }
+  stage('push') {
+    withCredentials('') {
+      docker.withRegistry('gcr.io') {
+
+      }
+    }
+  }
+}
+
     stage('Build Container') {
       steps {
         sh '''docker rm -f test.nginx || true
 docker run -d --rm --name test.nginx alpine sh -c \'while sleep 3600; do :; done\';
-docker exec test.nginx apk update; 
+docker exec test.nginx apk update;
 wait;
 docker exec test.nginx apk add python3 ca-certificates;
 wait;
