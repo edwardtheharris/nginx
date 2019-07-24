@@ -8,8 +8,12 @@ node('worker') {
     nginxImage = docker.build("gcr.io/xander-the-harris-jenkins/nginx")
   }
   stage('push') {
-    withCredentials('') {
-      docker.withRegistry('gcr.io') {
+    withCredentials([
+      usernamePassword(credentialsId: 'gcr:xander-the-harris-jenkins',
+											 passwordVariable: 'gcr_pass',
+											 usernameVariable: 'gcr_user')  
+    ]) {
+      docker.withRegistry('gcr.io', 'xander-the-harris-jenkins') {
         nginxImage.push("v${env.BUILD_NUMBER}")
       }
     }
