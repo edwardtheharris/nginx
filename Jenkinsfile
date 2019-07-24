@@ -1,6 +1,9 @@
 def nginxImage
 
 node('worker') {
+  stage('checkout' ) {
+    checkout scm
+  }
   stage('build') {
     nginxImage = docker.build("gcr.io/xander-the-harris-jenkins/nginx")
   }
